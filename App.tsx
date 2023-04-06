@@ -7,6 +7,8 @@ import React from "react";
 import ChatsScreen from "./src/screens/chats/index";
 import { NativeRouter, Route, Routes } from "react-router-native";
 import ChatScreen from "./src/screens/chat";
+import Screens from "./src/screens";
+import { AuthProvider } from "./src/shared/auth/contexts/auth.context";
 // const MusicRoute = () => <Text>Music</Text>;
 
 // const AlbumsRoute = () => <Text>Albums</Text>;
@@ -14,74 +16,19 @@ import ChatScreen from "./src/screens/chat";
 // const RecentsRoute = () => <Text>Recents</Text>;
 
 // const NotificationsRoute = () => <Text>Notifications</Text>;
-
-interface NavRoutes {
-  key: string;
-  title: string;
-  focusedIcon: string;
-  unfocusedIcon?: string;
-}
+import { QueryClient, QueryClientProvider } from "react-query";
+const queryClient = new QueryClient();
 export default function App() {
-  const [index, setIndex] = React.useState(0);
-  const [routes] = React.useState<NavRoutes[]>([
-    {
-      key: "chats",
-      title: "Chats",
-      focusedIcon: "chat",
-      unfocusedIcon: "chat-outline",
-    },
-    {
-      key: "calls",
-      title: "Calls",
-      focusedIcon: "video",
-      unfocusedIcon: "video-outline",
-    },
-    {
-      key: "people",
-      title: "People",
-      focusedIcon: "account",
-      unfocusedIcon: "account-outline",
-    },
-    {
-      key: "stories",
-      title: "Stories",
-      focusedIcon: "book",
-      unfocusedIcon: "book-outline",
-    },
-  ]);
-
-  const renderScene = BottomNavigation.SceneMap({
-    chats: () => <ChatsScreen></ChatsScreen>,
-    calls: () => <Text>chats1</Text>,
-    people: () => <Text>chats2</Text>,
-    stories: () => <Text>chats3</Text>,
-  });
-
   return (
-    <SafeAreaProvider>
-      <PaperProvider>
-        <>
-          <NativeRouter>
-            <Routes>
-              <Route
-                path="/"
-                element={
-                  <BottomNavigation
-                    navigationState={{ index, routes }}
-                    onIndexChange={setIndex}
-                    renderScene={renderScene}
-                  />
-                }
-              ></Route>
-              <Route
-                path="/chat/:chatId/"
-                element={<ChatScreen></ChatScreen>}
-              ></Route>
-            </Routes>
-          </NativeRouter>
-        </>
-      </PaperProvider>
-    </SafeAreaProvider>
+    <QueryClientProvider client={queryClient}>
+      <AuthProvider>
+        <SafeAreaProvider>
+          <PaperProvider>
+            <Screens></Screens>
+          </PaperProvider>
+        </SafeAreaProvider>
+      </AuthProvider>
+    </QueryClientProvider>
   );
 }
 
