@@ -17,16 +17,19 @@ import { AuthProvider } from "./src/shared/auth/contexts/auth.context";
 
 // const NotificationsRoute = () => <Text>Notifications</Text>;
 import { QueryClient, QueryClientProvider } from "react-query";
+import { FriendsProvider } from "./src/shared/friends/contexts/friends.context";
 const queryClient = new QueryClient();
 export default function App() {
   return (
     <QueryClientProvider client={queryClient}>
       <AuthProvider>
-        <SafeAreaProvider>
-          <PaperProvider>
-            <Screens></Screens>
-          </PaperProvider>
-        </SafeAreaProvider>
+        <FriendsProvider>
+          <SafeAreaProvider>
+            <PaperProvider>
+              <Screens></Screens>
+            </PaperProvider>
+          </SafeAreaProvider>
+        </FriendsProvider>
       </AuthProvider>
     </QueryClientProvider>
   );
