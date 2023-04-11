@@ -18,7 +18,7 @@ const Friend = ({ friend, showMessage = false }: Props) => {
   const navigate = useNavigate();
 
   const { id, firstName, lastName, isActive } = friend;
-
+  console.log(isActive);
   return (
     <Pressable
       key={friend.id}
