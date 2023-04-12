@@ -1,5 +1,5 @@
 import { StatusBar } from "expo-status-bar";
-import { SafeAreaView, StyleSheet, View } from "react-native";
+import { Platform, SafeAreaView, StyleSheet, View } from "react-native";
 import { SafeAreaProvider } from "react-native-safe-area-context";
 import { Provider as PaperProvider } from "react-native-paper";
 import { BottomNavigation, Text } from "react-native-paper";
@@ -9,6 +9,7 @@ import { NativeRouter, Route, Routes } from "react-router-native";
 import ChatScreen from "./src/screens/chat";
 import Screens from "./src/screens";
 import { AuthProvider } from "./src/shared/auth/contexts/auth.context";
+
 // const MusicRoute = () => <Text>Music</Text>;
 
 // const AlbumsRoute = () => <Text>Albums</Text>;
